@@ -33,6 +33,21 @@ class _ChatPageState extends State<ChatPage> {
         backgroundColor: botBackgroundColor,
       ),
       backgroundColor: backgroundColor,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Visibility(
+              visible: isLoading,
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
