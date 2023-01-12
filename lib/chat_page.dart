@@ -9,6 +9,14 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  late bool isLoading;
+
+  @override
+  void initState() {
+    super.initState();
+    isLoading = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
