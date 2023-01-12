@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'chat_message_widget.dart';
 import 'colors.dart';
+import 'model.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key, required String title});
@@ -11,6 +13,8 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   late bool isLoading;
   final _textController = TextEditingController();
+  final _scrollController = ScrollController();
+  final List<ChatMessage> _messages = [];
 
   @override
   void initState() {
@@ -37,6 +41,9 @@ class _ChatPageState extends State<ChatPage> {
       body: SafeArea(
         child: Column(
           children: [
+            Expanded(
+              child: _buildList(),
+            ),
             Visibility(
               visible: isLoading,
               child: const Padding(
@@ -92,6 +99,20 @@ class _ChatPageState extends State<ChatPage> {
             ),
             onPressed: () {}),
       ),
+    );
+  }
+
+  ListView _buildList() {
+    return ListView.builder(
+      controller: _scrollController,
+      itemCount: _messages.length,
+      itemBuilder: (context, index) {
+        var message = _messages[index];
+        return ChatMessageWidget(
+          text: message.text,
+          chatMessageType: message.chatMessageType,
+        );
+      },
     );
   }
 }
