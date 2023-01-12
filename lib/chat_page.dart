@@ -51,6 +51,7 @@ class _ChatPageState extends State<ChatPage> {
               child: Row(
                 children: [
                   _buildInput(),
+                  _buildSubmit(),
                 ],
               ),
             ),
@@ -75,6 +76,21 @@ class _ChatPageState extends State<ChatPage> {
           errorBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
         ),
+      ),
+    );
+  }
+
+  Widget _buildSubmit() {
+    return Visibility(
+      visible: !isLoading,
+      child: Container(
+        color: botBackgroundColor,
+        child: IconButton(
+            icon: const Icon(
+              Icons.send_rounded,
+              color: Color.fromRGBO(142, 142, 160, 1),
+            ),
+            onPressed: () {}),
       ),
     );
   }
