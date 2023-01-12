@@ -126,7 +126,37 @@ class _ChatPageState extends State<ChatPage> {
               Icons.send_rounded,
               color: Color.fromRGBO(142, 142, 160, 1),
             ),
-            onPressed: () {}),
+            onPressed: () async {
+              setState(
+                () {
+                  _messages.add(
+                    ChatMessage(
+                      text: _textController.text,
+                      chatMessageType: ChatMessageType.user,
+                    ),
+                  );
+                  isLoading = true;
+                },
+              );
+              var input = _textController.text;
+              _textController.clear();
+              Future.delayed(const Duration(milliseconds: 50))
+                  .then((_) => _scrollDown());
+              generateResponse(input).then((value) {
+                setState(() {
+                  isLoading = false;
+                  _messages.add(
+                    ChatMessage(
+                      text: value,
+                      chatMessageType: ChatMessageType.bot,
+                    ),
+                  );
+                });
+              });
+              _textController.clear();
+              Future.delayed(const Duration(milliseconds: 50))
+                  .then((_) => _scrollDown());
+            }),
       ),
     );
   }
